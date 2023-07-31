@@ -1,0 +1,57 @@
+.headerContainer {
+    display: flex;
+    justify-content: center;
+    margin-top: 100px;
+}
+
+.header {
+    font-family: monospace;
+    font-size: x-large;
+    font-weight: 600;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    margin-top: 100px;
+}
+
+.square {
+    height: 370px;
+    width: 400px;
+    border: solid beige 10px;
+    background-color: beige;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    display: grid;
+}
+
+.display {
+    height: 90px;
+    width: 400px;
+    margin-bottom: 15px;
+    background-color: aliceblue;
+    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.2), 0 3px 5px 0 rgba(0, 0, 0, 0.19);
+}
+
+.button {
+    font-family: monospace;
+    font-weight: 700;
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+}
+
+.grid-container > button:nth-child(1) {
+    grid-column: 1/span 2;
+}
+
+.grid-container > button:nth-child(2) {
+    grid-column: span 2;
+}
+
+.grid-container > button {
+    padding: 10px;
+}
