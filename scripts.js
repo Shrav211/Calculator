@@ -40,13 +40,13 @@ function operate(operator, num1, num2) {
         return sum;   
     } else if (operator == '-'){
         let diff = subtract(num2, num1);
-        console.log(diff); 
+        return diff; 
     } else if (operator == '*') {
         let mul = multiply(num1, num2);
-        console.log(mul); 
+        return mul; 
     } else if (operator == '/') {
         let div = divide(num1, num2);
-        console.log(div); 
+        return div; 
     }
 }
 
@@ -54,7 +54,7 @@ window.addEventListener('keydown', handleKeyboardInput);
 
 function handleKeyboardInput(e){
     if(e.key >= 0 || e.key <= 9) appendNumber(e.key);
-    if((e.key) == '+' || (e.key) == '-' || (e.key) == 'x' || (e.key) == '/') setOperation(e.key);
+    if((e.key) == '+' || (e.key) == '-' || (e.key) == '*' || (e.key) == '/') setOperation(e.key);
     if (e.key === '=' || e.key === 'Enter') evaluate();
 }
 
@@ -96,7 +96,7 @@ function evaluate() {
 
 function clear() {
     currOperation.textContent = ''
-    // lastOperationScreen.textContent = ''
+    prevOperation.textContent = ''
     number1 = ''
     number2 = ''
     currentOperation = null
