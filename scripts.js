@@ -1,6 +1,8 @@
-const display = document.getElementById("display");
+const currOperation = document.getElementById("display");
+const prevOperation = document.getElementById("display-up")
 const numberButtons = document.querySelectorAll(".button-number"); 
-console.log(numberButtons);
+const operatorButtons = document.querySelectorAll(".button-operator");
+const clearButton = document.getElementById("button-clear");
 
 function add(a, b) {
     return a + b;
@@ -25,42 +27,81 @@ function divide(a, b) {
 let number1 = '';
 let operator = '';
 let number2 = '';
-let num1 = parseInt(number1);
-let num2 = parseInt(number2);
+let currentOperation = null;
 
-if (operator == '+') {
-    let sum = add(num1, num2);
-    console.log(sum);    
-} else if (operator == '-'){
-    let diff = subtract(num2, num1);
-    console.log(diff); 
-} else if (operator == '*') {
-    let mul = multiply(num1, num2);
-    console.log(mul); 
-} else if (operator == '/') {
-    let div = divide(num1, num2);
-    console.log(div); 
+// let num1 = parseInt(number1);
+// let num2 = parseInt(number2);
+
+function operate(operator, num1, num2) {
+    num1 = Number(num1);
+    num2 = Number(num2);
+    if (operator == '+') {
+        let sum = add(num1, num2);
+        return sum;   
+    } else if (operator == '-'){
+        let diff = subtract(num2, num1);
+        console.log(diff); 
+    } else if (operator == '*') {
+        let mul = multiply(num1, num2);
+        console.log(mul); 
+    } else if (operator == '/') {
+        let div = divide(num1, num2);
+        console.log(div); 
+    }
 }
 
 window.addEventListener('keydown', handleKeyboardInput);
 
 function handleKeyboardInput(e){
     if(e.key >= 0 || e.key <= 9) appendNumber(e.key);
+    if((e.key) == '+' || (e.key) == '-' || (e.key) == 'x' || (e.key) == '/') setOperation(e.key);
+    if (e.key === '=' || e.key === 'Enter') evaluate();
 }
 
 numberButtons.forEach((button) =>
   button.addEventListener('click', () => appendNumber(button.textContent))
 )
 
+operatorButtons.forEach((button) =>
+  button.addEventListener('click', () => setOperation(button.textContent))
+)
+
+clearButton.addEventListener('click', clear)
+
 function appendNumber(number) {
-    display.textContent += number;
+    currOperation.textContent += number;
 }
 
+function setOperation(operator) {
+    // if (operator !== null) {
+    //     evaluate();
+    // }
+    number1 = currOperation.textContent;
+    currentOperation = operator;
+    console.log(number1);
+    console.log(currentOperation);
+    //currentOperation = null;
+    prevOperation.textContent = currOperation.textContent + operator;
+    currOperation.textContent = '';
+    //evaluate();
+}
 
+function evaluate() {
+    number2 = currOperation.textContent;
+    console.log(number2);
+    console.log(currentOperation);
+    currOperation.textContent = operate(currentOperation, number1, number2);
+    //currentOperation = null;
+}
 
-window.addEventListener('keydown', function(e) {
-    let keycode = e.keyCode;
-    if(keycode>=48 && keycode<=57){
-        console.log(e.key);        
-    }    
-});
+function clear() {
+    currOperation.textContent = ''
+    // lastOperationScreen.textContent = ''
+    number1 = ''
+    number2 = ''
+    currentOperation = null
+  }
+
+function roundResult(number) {
+    return Math.round(number * 1000) / 1000
+}  
